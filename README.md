@@ -2,7 +2,7 @@
 
 ---
 <p align="center">
-<img src="Fig1_new.pdf" alt>
+<img src="figures/Fig1_new.pdf" alt>
 <br>
 <em> mBEST Pipeline Overview </em>
 </p>
