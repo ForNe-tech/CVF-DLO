@@ -66,15 +66,15 @@ if __name__ == "__main__":
 
     for set in set_list:
 
-        img_list = os.listdir('SBHC/{}/images'.format(set))
+        img_list = os.listdir('DATASETS/SBHC/{}/images'.format(set))
 
-        os.makedirs('SBHC/{}/predicts_test4'.format(set), exist_ok=True)
+        os.makedirs('DATASETS/SBHC/{}/predicts'.format(set), exist_ok=True)
 
 
         for img_name in img_list:
             # img_name = 'img24.jpg'
             print(set + '_' + img_name)
-            source_img = cv2.imread('SBHC/{}/images/{}'.format(set, img_name))
+            source_img = cv2.imread('DATASETS/SBHC/{}/images/{}'.format(set, img_name))
 
             t0 = arrow.utcnow()
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
             img_out = cv2.cvtColor(img_out, cv2.COLOR_BGR2RGB)
 
-            cv2.imwrite('SBHC/{}/predicts_test4/{}'.format(set, img_name[:-4] + '.png'), img_out)
+            cv2.imwrite('DATASETS/SBHC/{}/predicts/{}'.format(set, img_name[:-4] + '.png'), img_out)
 
     avg_time = np.mean([v for v in total_time.values()])
     avg_time_S1 = np.mean([v for key, v in total_time.items() if key[1] == '1'])

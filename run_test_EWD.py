@@ -32,8 +32,8 @@ if __name__ == "__main__":
         # img_name = 'c1_39.png'
         print(img_name)
 
-        IMG_PATH = "EWD/test_imgs/{}".format(img_name)
-        MASK_PATH = "EWD/test_masks/{}".format(img_name)
+        IMG_PATH = "DATASETS/EWD/test_imgs/{}".format(img_name)
+        MASK_PATH = "DATASETS/EWD/test_masks/{}".format(img_name)
 
         source_img = cv2.imread(IMG_PATH, cv2.IMREAD_COLOR)
         source_img = cv2.resize(source_img, (IMG_W, IMG_H))
@@ -47,14 +47,14 @@ if __name__ == "__main__":
         total_time[img_name] = (arrow.utcnow() - t0).total_seconds() * 1000
         print('Out Total time: {:.5f}'.format((arrow.utcnow() - t0).total_seconds()))
 
-        out_dir = 'EWD/test_predicts_mask_R50/test5'
+        out_dir = 'DATASETS/EWD/test_predicts_mask_R50'
         os.makedirs(out_dir, exist_ok=True)
 
         img_out = cv2.cvtColor(img_out, cv2.COLOR_BGR2RGB)
 
         cv2.imwrite(out_dir + '/{}'.format(img_name), img_out)
 
-    del total_time['c1_0.png']
+    del total_time['c1_0.png']  # 第一张图片包含了加载模型的时间,运行时间很长
     avg_time = np.mean([v for v in total_time.values()])
     avg_time_C1 = np.mean([v for key, v in total_time.items() if key[1] == '1'])
     avg_time_C2 = np.mean([v for key, v in total_time.items() if key[1] == '2'])

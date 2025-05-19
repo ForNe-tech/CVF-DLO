@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     p = Pipeline(checkpoint_seg=ckpt_seg_name, colors=rgb_colors, img_w=IMG_W, img_h=IMG_H, if_debug=False, scene='BWH')
 
-    dir = 'LABD/BWH'
+    dir = 'DATASETS/BWH'
 
     img_dir = f'{dir}/imgs'
     mask_dir = f'{dir}/masks'
