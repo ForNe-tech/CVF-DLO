@@ -17,10 +17,10 @@ if __name__ == "__main__":
     S_list = ['S1', 'S2', 'S3']
     dice_dict = {}
     for s in S_list:
-        img_list = os.listdir('../SBHC/{}/predicts'.format(s))
+        img_list = os.listdir('../dataset/{}/predicts'.format(s))
         for img_name in img_list:
-            pred = cv2.imread(os.path.join('../SBHC/{}/predicts_wCC'.format(s), img_name), cv2.IMREAD_GRAYSCALE)
-            target = np.load(os.path.join('../SBHC/{}/gt_labels'.format(s), img_name[:-4] + '.npy'))
+            pred = cv2.imread(os.path.join('../dataset/{}/predicts_FAST'.format(s), img_name), cv2.IMREAD_GRAYSCALE)
+            target = np.load(os.path.join('../dataset/{}/gt_labels'.format(s), img_name[:-4] + '.npy'))
             pred_h, pred_w = pred.shape[0], pred.shape[1]
             target_h, target_w = target.shape[0], target.shape[1]
             size_h = min(pred_h, target_h)

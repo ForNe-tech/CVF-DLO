@@ -32,7 +32,7 @@ def PQ(pred, target, epsilon=1e-6):
     union_[union_ > 0] = 1
     union = union_.sum()
     IoU_score = (intersection + epsilon) / (union + epsilon)
-    return intersection * IoU_score
+    return intersection * IoU_score, union
 
 
 if __name__ == "__main__":
@@ -43,13 +43,13 @@ if __name__ == "__main__":
 
     for set in set_list:
 
-        img_list = os.listdir('../SBHC/{}/images'.format(set))
+        img_list = os.listdir('../dataset/{}/images'.format(set))
 
         for img_name in img_list:
 
-            pred = cv2.imread(os.path.join('../SBHC/{}/predicts_wCC'.format(set), img_name[:-4] + '.png'), cv2.IMREAD_UNCHANGED)
-            # target = cv2.imread(os.path.join('../SBHC/{}/gt_images'.format(set), img_name[:-4] + '.png'), cv2.IMREAD_UNCHANGED)
-            target = np.load(os.path.join('../SBHC/{}/gt_labels'.format(set), img_name[:-4] + '.npy'))
+            pred = cv2.imread(os.path.join('../dataset/{}/predicts_FAST'.format(set), img_name[:-4] + '.png'), cv2.IMREAD_UNCHANGED)
+            # target = cv2.imread(os.path.join('../dataset/{}/gt_images'.format(set), img_name[:-4] + '.png'), cv2.IMREAD_UNCHANGED)
+            target = np.load(os.path.join('../dataset/{}/gt_labels'.format(set), img_name[:-4] + '.npy'))
             pred_h, pred_w = pred.shape[0], pred.shape[1]
             target_h, target_w = target.shape[0], target.shape[1]
             size_h = min(pred_h, target_h)
@@ -67,13 +67,23 @@ if __name__ == "__main__":
             #     pixel_N += target.sum()
 
             PQ_sum = 0
+            pixel_N = 0
 
-            for pred in pred_instances.values():
+            # for pred in pred_instances.values():
+            #     PQ_score_possible = []
+            #     for target in target_instances.values():
+            #         PQ_score_possible.append(PQ(pred, target)[0])
+            #     PQ_score = max(PQ_score_possible)
+            #     PQ_sum += PQ_score
+
+            for target in target_instances.values():
                 PQ_score_possible = []
-                for target in target_instances.values():
+                for pred in pred_instances.values():
                     PQ_score_possible.append(PQ(pred, target))
-                PQ_score = max(PQ_score_possible)
-                PQ_sum += PQ_score
+                sorted_PQ_score_possible = sorted(PQ_score_possible, key=lambda x: x[0], reverse=True)
+                PQ_score = sorted_PQ_score_possible[0]
+                PQ_sum += PQ_score[0]
+                pixel_N += PQ_score[1]
 
             print(set + '_' + img_name + ' PQ_score:', PQ_sum / pixel_N, 'pred_instance:', pred_instance_num, 'target_instance:',
                   target_instance_num)
