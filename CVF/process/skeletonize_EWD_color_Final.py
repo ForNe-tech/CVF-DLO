@@ -766,36 +766,29 @@ class Skeletonize():
             ind1 = int(index[0])
             ind2 = int(index[1])
             CM[index] = self.calcEndSimilarity(ends_dict_rf[int_dict_ends[ind1]], ends_dict_rf[int_dict_ends[ind2]], skel, 'int_pair')
-        # CM_l = [v for v in CM.values()]
-        # # 找到四个点匹配过程中的最小值和次小值,返回其index
-        # CM_min_index = index_l[CM_l.index(min(CM_l))]
-        # index_l.remove(CM_min_index)
-        # CM_l.remove(min(CM_l))
-        # CM_min2_index = index_l[CM_l.index(min(CM_l))]
-        # repeatIndex = self.repeatIndex(CM_min_index, CM_min2_index)
-        # if repeatIndex == '':        # 若最小的两组端点对没有重复的端点,则为交叉或平行
-        #     end_pairs.append((i, int_dict_ends[int(CM_min_index[0])], int_dict_ends[int(CM_min_index[1])]))
-        #     end_pairs.append((i, int_dict_ends[int(CM_min2_index[0])], int_dict_ends[int(CM_min2_index[1])]))
-        # else:                        # 若有重复的端点,首先,判断是1-3路口还是交叉路口
-        #     index_s_l = ['0', '1', '2', '3']
-        #     index_already_in = list(CM_min_index) + list(CM_min2_index)
-        #     leftIndex = list(set(index_s_l) - set(index_already_in))[0]
-        #     CM_left_index = leftIndex + repeatIndex if int(leftIndex) < int(repeatIndex) else repeatIndex + leftIndex
-        #     if CM[CM_left_index] < 1:    # 该情况下可被认为是1-3路口
-        #         index_s_l.remove(repeatIndex)
-        #         for index_s in index_s_l:
-        #             end_pairs.append((i, int_dict_ends[int(repeatIndex)], int_dict_ends[int(index_s)]))
-        #     else:                          # 该情况下可被认为是交叉路口
-        #         index_left_l = list(set(index_s_l) - set(list(CM_min_index)))
-        #         end_pairs.append((i, int_dict_ends[int(CM_min_index[0])], int_dict_ends[int(CM_min_index[1])]))
-        #         end_pairs.append((i, int_dict_ends[int(index_left_l[0])], int_dict_ends[int(index_left_l[1])]))
-        # return end_pairs
-        # 找到一个两两组合使得其最小
-        index_pair_l = [['01', '23'], ['02', '13'], ['03', '12']]
-        CM_pair_l = [CM[index_pair[0]] + CM[index_pair[1]] for index_pair in index_pair_l]
-        CM_pair_min = index_pair_l[CM_pair_l.index(min(CM_pair_l))]
-        for index in CM_pair_min:
-            end_pairs.append((i, int_dict_ends[int(index[0])], int_dict_ends[int(index[1])]))
+        CM_l = [v for v in CM.values()]
+        # 找到四个点匹配过程中的最小值和次小值,返回其index
+        CM_min_index = index_l[CM_l.index(min(CM_l))]
+        index_l.remove(CM_min_index)
+        CM_l.remove(min(CM_l))
+        CM_min2_index = index_l[CM_l.index(min(CM_l))]
+        repeatIndex = self.repeatIndex(CM_min_index, CM_min2_index)
+        if repeatIndex == '':        # 若最小的两组端点对没有重复的端点,则为交叉或平行
+            end_pairs.append((i, int_dict_ends[int(CM_min_index[0])], int_dict_ends[int(CM_min_index[1])]))
+            end_pairs.append((i, int_dict_ends[int(CM_min2_index[0])], int_dict_ends[int(CM_min2_index[1])]))
+        else:                        # 若有重复的端点,首先,判断是1-3路口还是交叉路口
+            index_s_l = ['0', '1', '2', '3']
+            index_already_in = list(CM_min_index) + list(CM_min2_index)
+            leftIndex = list(set(index_s_l) - set(index_already_in))[0]
+            CM_left_index = leftIndex + repeatIndex if int(leftIndex) < int(repeatIndex) else repeatIndex + leftIndex
+            if CM[CM_left_index] < 1:    # 该情况下可被认为是1-3路口
+                index_s_l.remove(repeatIndex)
+                for index_s in index_s_l:
+                    end_pairs.append((i, int_dict_ends[int(repeatIndex)], int_dict_ends[int(index_s)]))
+            else:                          # 该情况下可被认为是交叉路口
+                index_left_l = list(set(index_s_l) - set(list(CM_min_index)))
+                end_pairs.append((i, int_dict_ends[int(CM_min_index[0])], int_dict_ends[int(CM_min_index[1])]))
+                end_pairs.append((i, int_dict_ends[int(index_left_l[0])], int_dict_ends[int(index_left_l[1])]))
         return end_pairs
 
     def repeatIndex(self, index1, index2):

@@ -751,10 +751,10 @@ class Skeletonize():
             elif int_end_num == 2:
                 end_pairs += self.handleTwo(skel, ends_dict_rf, i, int_dict)
                 to_delete.append(i)
-            # elif int_end_num == 3:
-            #     end_pairs += self.handleFork(skel, ends_dict_rf, i, int_dict)
-            # elif int_end_num == 4:
-            #     end_pairs += self.handleCross(skel, ends_dict_rf, i, int_dict)
+            elif int_end_num == 3:
+                end_pairs += self.handleFork(skel, ends_dict_rf, i, int_dict)
+            elif int_end_num == 4:
+                end_pairs += self.handleCross(skel, ends_dict_rf, i, int_dict)
             else:
                 end_pairs += self.handleNCross(skel, ends_dict_rf, i, int_dict)
         for k in to_delete:

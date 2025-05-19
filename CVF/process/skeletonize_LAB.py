@@ -562,7 +562,7 @@ class Skeletonize():
             elif int_end_num == 4:
                 end_pairs += self.handleCross(skel, ends_dict_rf, int_dict)
             else:
-                print('{} fork road is not in the scope of treatment.'.format(int_end_num))
+                end_pairs += self.handleNCross(skel, ends_dict_rf, i, int_dict)
         for k in to_delete:
             del ints_dict_m[k]
         return end_pairs
@@ -629,6 +629,48 @@ class Skeletonize():
                 index_left_l = list(set(index_s_l) - set(list(CM_min_index)))
                 end_pairs.append((int_dict_ends[int(CM_min_index[0])], int_dict_ends[int(CM_min_index[1])]))
                 end_pairs.append((int_dict_ends[int(index_left_l[0])], int_dict_ends[int(index_left_l[1])]))
+        return end_pairs
+
+    def handleNCross(self, skel, ends_dict_rf, i, int_dict):
+        # print('handleNCross')
+        end_pairs = []
+        int_dict_ends = int_dict['int_ends']
+        cross_num = len(int_dict_ends)
+        index_all = []
+        for i in range(cross_num - 1):
+            for j in range(i + 1, cross_num):
+                index_all.append(str(i) + str(j))
+        CM = {}
+        end = []
+        index_l = []
+        for index in index_all:
+            ind1 = int(index[0])
+            ind2 = int(index[1])
+            simi = self.calcEndSimilarity(ends_dict_rf[int_dict_ends[ind1]], ends_dict_rf[int_dict_ends[ind2]],
+                                          skel, 'int_pair')
+            if not math.isnan(simi):
+                index_l.append(index)
+                CM[index] = simi
+                if str(ind1) not in end:
+                    end.append(str(ind1))
+                if str(ind2) not in end:
+                    end.append(str(ind2))
+        if len(end) < cross_num:
+            for i in range(cross_num):
+                if str(i) not in end:
+                    ends_dict_rf[int_dict_ends[i]]['point_type'] = 'iso'
+        CM_l = [v for v in CM.values()]
+        end_already_in = []
+        while end_already_in != end:
+            CM_min_index = index_l[CM_l.index(min(CM_l))]
+            index_l.remove(CM_min_index)
+            CM_l.remove(min(CM_l))
+            end_pairs.append((i, int_dict_ends[int(CM_min_index[0])], int_dict_ends[int(CM_min_index[1])]))
+            if CM_min_index[0] not in end_already_in:
+                end_already_in.append(CM_min_index[0])
+            if CM_min_index[1] not in end_already_in:
+                end_already_in.append(CM_min_index[1])
+            end_already_in.sort()
         return end_pairs
 
     def repeatIndex(self, index1, index2):
