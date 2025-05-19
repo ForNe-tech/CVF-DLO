@@ -81,7 +81,7 @@ class Pipeline():
         mask_img_G = mask_Ex.copy()
 
         if self.if_debug:
-            cv2.imwrite('data/debug_results/mask_guass.png', mask_img_G)
+            cv2.imwrite('EWD/debug_results/mask_guass.png', mask_img_G)
 
         # print(mask_img_G.sum()/255)
 
@@ -475,7 +475,7 @@ class Pipeline():
             if self.if_debug:
                 back = cv2.cvtColor(rgb, cv2.COLOR_HSV2BGR)
                 cv2.circle(back, (p_mid[1], p_mid[0]), 3, (0, 255, 0))
-                cv2.imwrite('data/debug_results/route_test/calcRouteScore.jpg', back)
+                cv2.imwrite('EWD/debug_results/route_test/calcRouteScore.jpg', back)
             hsv_mid_list.append(hsv_p_mid)
             k += 2
         for j in range(1, len(hsv_mid_list)-1):
@@ -513,9 +513,9 @@ class Pipeline():
                     line_thickness = max(int(routes[route_label]['width'][0] * 2 - 2), 3)
                     line_color = (int(self.cmap[color_index][0]), int(self.cmap[color_index][1]), int(self.cmap[color_index][2]))
                     cv2.line(back_w, (end_p1[1], end_p1[0]), (end_p2[1], end_p2[0]), line_color, thickness=line_thickness)
-            # cv2.imwrite('data/debug_results/route_test/route_comb_visib_{}.jpg'.format(color_index), back_w)
+            # cv2.imwrite('EWD/debug_results/route_test/route_comb_visib_{}.jpg'.format(color_index), back_w)
             color_index += 1
-        # cv2.imwrite('data/debug_results/route_test/route_comb_visib.jpg', back_w)
+        # cv2.imwrite('EWD/debug_results/route_test/route_comb_visib.jpg', back_w)
         return back_w
 
     def showCombRoutes_WithCrossOrder(self, skel, routes, ends_dict, combEnds_list, ints_dict, rgb):
@@ -589,7 +589,7 @@ class Pipeline():
                         for connected_pair in route_pairs_have_drawn[route_pair]['connected_pairs']:
                             self.drawCross(connected_pair, ends_dict, routes, cross_pairs_have_drawn[connected_pair]['line_color'], back_w)
 
-            cv2.imwrite('data/debug_results/route_test/route_comb_visib_{}.jpg'.format(color_index), back_w)
+            cv2.imwrite('EWD/debug_results/route_test/route_comb_visib_{}.jpg'.format(color_index), back_w)
             color_index += 1
         return back_w
 
@@ -638,7 +638,7 @@ class Pipeline():
             cv2.circle(temp_rgb, (p1[1], p1[0]), 3, (255, 0, 0), thickness=-1)
             cv2.circle(temp_rgb, (p2[1], p2[0]), 3, (0, 255, 0), thickness=-1)
             cv2.circle(temp_rgb, (p1_2[1], p1_2[0]), 3, (0, 0, 255), thickness=-1)
-            cv2.imwrite('data/debug_results/route_test/cross_window.jpg', temp_rgb[top:bottom, left:right])
+            cv2.imwrite('EWD/debug_results/route_test/cross_window.jpg', temp_rgb[top:bottom, left:right])
         hsv_p1 = ends_dict[cross_pair[0]]['end_hsv']
         # hsv_p1_ = rgb[p1[0]][p1[1]]
         hsv_p2 = ends_dict[cross_pair[1]]['end_hsv']
@@ -693,7 +693,7 @@ class Pipeline():
             # 标准绘制模式
             # cv2.circle(back_w, (point[1], point[0]), round(dist_img[point[0]][point[1]]), line_color, -1)
         if self.if_debug:
-            cv2.imwrite('data/debug_results/route_test/temp_route.jpg', back_w)
+            cv2.imwrite('EWD/debug_results/route_test/temp_route.jpg', back_w)
 
 
     def drawCross(self, end_pair, ends_dict, routes, line_color, back_w):
@@ -716,7 +716,7 @@ class Pipeline():
         # cv2.line(back_w, (end_p1[1], end_p1[0]), (int_point[1], int_point[0]), line_color, thickness=line_thickness)
         # cv2.line(back_w, (int_point[1], int_point[0]), (end_p2[1], end_p2[0]), line_color, thickness=line_thickness)
         if self.if_debug:
-            cv2.imwrite('data/debug_results/route_test/temp_route.jpg', back_w)
+            cv2.imwrite('EWD/debug_results/route_test/temp_route.jpg', back_w)
 
     def combEndsToRoutes(self, rgb, routes, ends_dict, ints_dict, end_pairs, combEnds_list):
         # 单线快速绘制模式
@@ -768,7 +768,7 @@ class Pipeline():
                 self.drawCross(cross_info[0], ends_dict, routes, line_color, back_w)
 
         if self.if_debug:
-            cv2.imwrite('data/debug_results/route_test/route_cross_visib_{}.jpg'.format(color_index), back_w)
+            cv2.imwrite('EWD/debug_results/route_test/route_cross_visib_{}.jpg'.format(color_index), back_w)
         return back_w
 
     def GetCrossLabel(self, cross_pair, end_pairs):
@@ -785,7 +785,7 @@ class Pipeline():
         for point in routes[route_label]['route']:
             cv2.circle(back_w, (point[1], point[0]), max(round(radius), 1), line_color, -1)
         if self.if_debug:
-            cv2.imwrite('data/debug_results/route_test/route_cross_visib_temp.jpg', back_w)
+            cv2.imwrite('EWD/debug_results/route_test/route_cross_visib_temp.jpg', back_w)
             print(1)
 
     def drawCross_label(self, end_pair, ends_dict, ints_dict, routes, line_color, back_w):
@@ -803,5 +803,5 @@ class Pipeline():
         cv2.line(back_w, (end_p1[1], end_p1[0]), (int_point[1], int_point[0]), line_color, thickness=max(round(radii_p1)*2,3))
         cv2.line(back_w, (int_point[1], int_point[0]), (end_p2[1], end_p2[0]), line_color, thickness=max(round(radii_p2)*2,3))
         if self.if_debug:
-            cv2.imwrite('data/debug_results/route_test/temp_route.jpg', back_w)
+            cv2.imwrite('EWD/debug_results/route_test/temp_route.jpg', back_w)
             print(1)

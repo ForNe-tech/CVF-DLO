@@ -21,7 +21,7 @@ if __name__ == "__main__":
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
-    route3D_dir = "../../data/LAB_imgs_1028_DLO/route3D"
+    route3D_dir = "../../EWD/LAB_imgs_1028_DLO/route3D"
     route3D_list = os.listdir(route3D_dir)
 
     xx_list = []

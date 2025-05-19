@@ -52,8 +52,8 @@ class Skeletonize():
         skeleton = sk.skeletonize(mask)
 
         if self.if_debug:
-            cv2.imwrite('data/debug_results/mask.png', mask)
-            cv2.imwrite('data/debug_results/skeleton_lee.png', skeleton * 255)
+            cv2.imwrite('EWD/debug_results/mask.png', mask)
+            cv2.imwrite('EWD/debug_results/skeleton_lee.png', skeleton * 255)
 
         if source_img is None:
             source_img = np.zeros_like(mask)
@@ -78,7 +78,7 @@ class Skeletonize():
         skeleton_f[tuple([ints[0], ints[1]])] = 0
 
         if self.if_debug:
-            cv2.imwrite('data/debug_results/skeleton_f.png', skeleton_f)
+            cv2.imwrite('EWD/debug_results/skeleton_f.png', skeleton_f)
 
         # =========================================================================
         times.append(time() - s)
@@ -94,7 +94,7 @@ class Skeletonize():
         skeleton_f, labels, ints_dict_rf = self.constructIntsDict(skeleton_f, labels, dist_img, ints_dict_rf)
 
         if self.if_debug:
-            cv2.imwrite('data/debug_results/skeleton_ints_rf.png', skeleton_f)
+            cv2.imwrite('EWD/debug_results/skeleton_ints_rf.png', skeleton_f)
             self.showPoints_dict(skeleton_f, ints = ints_dict_rf, merged=False)
 
         ends = self.extractEndslist(skeleton_f)
@@ -131,7 +131,7 @@ class Skeletonize():
         # ends_rf = self.extractEnds(skeleton_rf)
 
         if self.if_debug:
-            cv2.imwrite('data/debug_results/skeleton_rf.png', skeleton_rf)
+            cv2.imwrite('EWD/debug_results/skeleton_rf.png', skeleton_rf)
             self.showPoints(skeleton_rf, ends_rf)
 
         # 端点信息绑定(孤立端点,交叉端点,端点隶属DLO编号),端点绑定到交叉点
@@ -165,7 +165,7 @@ class Skeletonize():
         if self.if_debug:
             # 重新连接
             skeleton_m = self.mergeEnds(skeleton_rf, ends_dict_rf, end_pairs)
-            cv2.imwrite('data/debug_results/skeleton_m.png', skeleton_m)
+            cv2.imwrite('EWD/debug_results/skeleton_m.png', skeleton_m)
 
         # =========================================================================
         times.append(time() - s)
@@ -190,7 +190,7 @@ class Skeletonize():
                 int_point = inT['point']
                 int_radii = round(inT['int_radius']) + self.kernel_size
                 cv2.circle(back, (int(int_point[1]), int(int_point[0])), int_radii, (0, 255, 0))
-        cv2.imwrite('data/debug_results/show_points_dict_{}.jpg'.format(merged), back)
+        cv2.imwrite('EWD/debug_results/show_points_dict_{}.jpg'.format(merged), back)
 
 
     def showPoints(self, skel, ends=None, ints=None):
@@ -204,7 +204,7 @@ class Skeletonize():
             ints_list = list(zip(ints[1], ints[0]))
             for int in ints_list:
                 cv2.circle(back, int, 3, (0, 255, 0))
-        cv2.imwrite('data/debug_results/show_points.jpg', back)
+        cv2.imwrite('EWD/debug_results/show_points.jpg', back)
 
     def showRoutes(self, routes, skel, prune=False, mask=None):
         if mask is not None:
@@ -216,9 +216,9 @@ class Skeletonize():
             for point in routes[i]['route']:
                 back_white[point[0]][point[1]] = self.cmap[i]
         if prune:
-            cv2.imwrite('data/debug_results/show_routes_prune.jpg', back_white)
+            cv2.imwrite('EWD/debug_results/show_routes_prune.jpg', back_white)
         else:
-            cv2.imwrite('data/debug_results/show_routes.jpg', back_white)
+            cv2.imwrite('EWD/debug_results/show_routes.jpg', back_white)
 
     def showEndsAndRadius(self, skel, ends_dict_rf, routes):
         back = cv2.cvtColor(skel, cv2.COLOR_GRAY2BGR)
@@ -228,7 +228,7 @@ class Skeletonize():
             end_route_label = end_dict['route_label'][0]
             radii = int(0.1 * len(routes[end_route_label]))
             cv2.circle(back, (end_point[1], end_point[0]), radii, (0, 255, 0))
-        cv2.imwrite('data/debug_results/show_ends_and_radius.jpg', back)
+        cv2.imwrite('EWD/debug_results/show_ends_and_radius.jpg', back)
 
     def mergeInts(self, ints, thre):
         ints_list = list(zip(ints[0], ints[1]))
@@ -556,7 +556,7 @@ class Skeletonize():
                     if self.if_debug:
                         back = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
                         cv2.line(back, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0))
-                        cv2.imwrite('data/debug_results/conn_test/path_conn_{}.png'.format(diff_hsv), back)
+                        cv2.imwrite('EWD/debug_results/conn_test/path_conn_{}.png'.format(diff_hsv), back)
                     # ================================
                     if diff_hsv > 5:
                         continue
@@ -610,7 +610,7 @@ class Skeletonize():
             #     saved_window = cv2.resize(end_window, (256, 256))
             #     saved_window[saved_window > 0] = 255
             #     saved_window = ~saved_window
-            #     cv2.imwrite('data/debug_results/similarity_test/end_window.png', saved_window)
+            #     cv2.imwrite('EWD/debug_results/similarity_test/end_window.png', saved_window)
             EWRP -= np.ones_like(EWRP) * (2 * self.kernel_size)
             y_sum = np.sum(EWRP[0])
             x_sum = np.sum(EWRP[1])
@@ -688,7 +688,7 @@ class Skeletonize():
             if flag == 'int_pair':
                 back = back[max(0, ((point1[0] + point2[0])//2 - 20*self.kernel_size)):min(IMG_H, ((point1[0] + point2[0])//2 + 20*self.kernel_size)),
                             max(0, ((point1[1] + point2[1])//2 - 20*self.kernel_size)):min(IMG_W, ((point1[1] + point2[1])//2 + 20*self.kernel_size))]
-            cv2.imwrite('data/debug_results/similarity_test/calcSimilarity_{}.jpg'.format(CM), back)
+            cv2.imwrite('EWD/debug_results/similarity_test/calcSimilarity_{}.jpg'.format(CM), back)
         return CM
 
     def costEuclidean(self, point1, point2, IMG_H, IMG_W):

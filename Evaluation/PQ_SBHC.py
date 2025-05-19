@@ -43,13 +43,13 @@ if __name__ == "__main__":
 
     for set in set_list:
 
-        img_list = os.listdir('../dataset/{}/images'.format(set))
+        img_list = os.listdir('../SBHC/{}/images'.format(set))
 
         for img_name in img_list:
 
-            pred = cv2.imread(os.path.join('../dataset/{}/predicts_wCC'.format(set), img_name[:-4] + '.png'), cv2.IMREAD_UNCHANGED)
-            # target = cv2.imread(os.path.join('../dataset/{}/gt_images'.format(set), img_name[:-4] + '.png'), cv2.IMREAD_UNCHANGED)
-            target = np.load(os.path.join('../dataset/{}/gt_labels'.format(set), img_name[:-4] + '.npy'))
+            pred = cv2.imread(os.path.join('../SBHC/{}/predicts_wCC'.format(set), img_name[:-4] + '.png'), cv2.IMREAD_UNCHANGED)
+            # target = cv2.imread(os.path.join('../SBHC/{}/gt_images'.format(set), img_name[:-4] + '.png'), cv2.IMREAD_UNCHANGED)
+            target = np.load(os.path.join('../SBHC/{}/gt_labels'.format(set), img_name[:-4] + '.npy'))
             pred_h, pred_w = pred.shape[0], pred.shape[1]
             target_h, target_w = target.shape[0], target.shape[1]
             size_h = min(pred_h, target_h)

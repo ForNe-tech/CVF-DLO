@@ -195,7 +195,7 @@ class BS_curve(object):
         # pts_paras = self.estimate_parameters(pts)
         ## knot vector U;
         # knots = self.get_knots()
-        num = pts.shape[0] - 1  # (num+1) is the number of data points
+        num = pts.shape[0] - 1  # (num+1) is the number of EWD points
 
         P = np.zeros((self.n + 1, pts.shape[1]), dtype=np.float64)  # n+1 control points
         P[0] = pts[0]
@@ -232,9 +232,9 @@ class BS_curve(object):
 
 def path3D_to_bs(saved=False):
     # 读取线缆路径散点
-    pathdir = '../../data/LAB_imgs_1028_DLO/path3D_sp/'
-    bsdir = '../../data/LAB_imgs_1028_DLO/path3D_sp_bs/'
-    visdir = '../../data/LAB_imgs_1028_DLO/path3D_sp_vis/'
+    pathdir = '../../EWD/LAB_imgs_1028_DLO/path3D_sp/'
+    bsdir = '../../EWD/LAB_imgs_1028_DLO/path3D_sp_bs/'
+    visdir = '../../EWD/LAB_imgs_1028_DLO/path3D_sp_vis/'
     os.makedirs(visdir, exist_ok=True)
 
     scene_list = [''] + [str(i) for i in range(21)]
@@ -312,8 +312,8 @@ def path3D_to_bs(saved=False):
 
 def path3D_merge_to_bs():
     # 读取线缆路径散点
-    pathdir = '../../data/LAB_imgs_0715G_DLO/path3D_merge/'
-    bsdir = '../../data/LAB_imgs_0715G_DLO/path3D_merge_bs/'
+    pathdir = '../../EWD/LAB_imgs_0715G_DLO/path3D_merge/'
+    bsdir = '../../EWD/LAB_imgs_0715G_DLO/path3D_merge_bs/'
 
     label_list = [str(i) for i in range(100)]
 
@@ -365,9 +365,9 @@ def path3D_merge_to_bs():
 
 def route3D_to_bs(saved=False):
     # 读取线缆路径散点
-    pathdir = '../../data/LAB_imgs_1028_DLO/route3D_bs_select/'
-    bsdir = '../../data/LAB_imgs_1028_DLO/route3D_bs_select_bs/'
-    visdir = '../../data/LAB_imgs_1028_DLO/route3D_bs_select_bs_vis/'
+    pathdir = '../../EWD/LAB_imgs_1028_DLO/route3D_bs_select/'
+    bsdir = '../../EWD/LAB_imgs_1028_DLO/route3D_bs_select_bs/'
+    visdir = '../../EWD/LAB_imgs_1028_DLO/route3D_bs_select_bs_vis/'
 
     label_list = os.listdir(pathdir)
 
@@ -430,9 +430,9 @@ def route3D_to_bs(saved=False):
 def unity_route3D_to_bs(cable_name):
     # 读取线缆路径散点
 
-    cable_path = '../../data/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D_extracted/{}_extracted.json'.format(cable_name)
-    bs_paras_path = '../../data/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D_bs/{}_paras_bs.json'.format(cable_name)
-    bs_cable_path = '../../data/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D_bs/{}_bs.json'.format(cable_name)
+    cable_path = '../../EWD/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D_extracted/{}_extracted.json'.format(cable_name)
+    bs_paras_path = '../../EWD/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D_bs/{}_paras_bs.json'.format(cable_name)
+    bs_cable_path = '../../EWD/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D_bs/{}_bs.json'.format(cable_name)
     vis_dir = "unity_cable_vis"
 
     if not os.path.exists(cable_path):
@@ -478,7 +478,7 @@ def unity_route3D_to_bs(cable_name):
         json.dump(bs_path3D, f2, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__":
-    # cable_dir = '../../data/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D_extracted/'
+    # cable_dir = '../../EWD/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D_extracted/'
     # cable_list = os.listdir(cable_dir)
     # for cable_name in cable_list:
     #     print(cable_name[:5])

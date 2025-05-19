@@ -14,7 +14,7 @@ def calcdistanceZ(point1, point2):
     return dist_z
 
 def smoothPath3D():
-    pathdir = '../../data/LAB_imgs_1028_DLO/path3D_sp_cam/'
+    pathdir = '../../EWD/LAB_imgs_1028_DLO/path3D_sp_cam/'
 
     scene_list = [''] + [str(i) for i in range(21)]
 

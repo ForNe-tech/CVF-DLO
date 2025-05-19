@@ -196,7 +196,7 @@ class BS_curve(object):
         # pts_paras = self.estimate_parameters(pts)
         ## knot vector U;
         # knots = self.get_knots()
-        num = pts.shape[0] - 1  # (num+1) is the number of data points
+        num = pts.shape[0] - 1  # (num+1) is the number of EWD points
 
         P = np.zeros((self.n + 1, pts.shape[1]), dtype=np.float64)  # n+1 control points
         P[0] = pts[0]
@@ -234,9 +234,9 @@ class BS_curve(object):
 if __name__ == "__main__":
 
     # 读取线缆路径散点
-    pathdir = '../../data/LAB_imgs_1028_DLO/path2D/'
-    bsdir = '../../data/LAB_imgs_1028_DLO/path2D_bs/'
-    visdir = '../../data/LAB_imgs_1028_DLO/path2D_vis/'
+    pathdir = '../../EWD/LAB_imgs_1028_DLO/path2D/'
+    bsdir = '../../EWD/LAB_imgs_1028_DLO/path2D_bs/'
+    visdir = '../../EWD/LAB_imgs_1028_DLO/path2D_vis/'
 
     os.makedirs(bsdir, exist_ok=True)
     os.makedirs(visdir, exist_ok=True)

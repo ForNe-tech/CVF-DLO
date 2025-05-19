@@ -50,7 +50,7 @@ def draw_drac(img, center, R, color, start_angle, end_angle, thickness):
     axes = (R, R)  # long & short
     shift = 3
     cv2.ellipse(img, center, axes, rot_angle_degree, start_angle, end_angle, color, thickness=thickness, shift=shift)
-    cv2.imwrite('data/debug_results/route_test/temp_cross.jpg', img)
+    cv2.imwrite('EWD/debug_results/route_test/temp_cross.jpg', img)
     return img
 
 

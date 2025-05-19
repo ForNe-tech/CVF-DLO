@@ -21,11 +21,11 @@ def dice_loss(pred, target, epsilon=1e-6):
     return dice_score
 
 def IoU_CVFDLO():
-    img_list = os.listdir('../data/test_labels')
+    img_list = os.listdir('../EWD/test_labels')
     IoU_dict = {}
     for img_name in img_list:
-        pred = cv2.imread(os.path.join('../data/test_predicts_mask_R101/wo ISOPair', img_name), cv2.IMREAD_GRAYSCALE)
-        target = cv2.imread(os.path.join('../data/test_labels', img_name), cv2.IMREAD_GRAYSCALE)
+        pred = cv2.imread(os.path.join('../EWD/test_predicts_mask_R101/wo ISOPair', img_name), cv2.IMREAD_GRAYSCALE)
+        target = cv2.imread(os.path.join('../EWD/test_labels', img_name), cv2.IMREAD_GRAYSCALE)
         target = cv2.resize(target, (640, 360))
         pred[pred < 31] = 0
         pred[pred != 0] = 1
@@ -45,11 +45,11 @@ def IoU_CVFDLO():
     print("avg_IoU_C3:", avg_IoU_C3)
 
 def dice_CVFDLO():
-    img_list = os.listdir('../data/test_labels')
+    img_list = os.listdir('../EWD/test_labels')
     dice_dict = {}
     for img_name in img_list:
-        pred = cv2.imread(os.path.join('../data/test_predicts_label/wo CC', img_name), cv2.IMREAD_GRAYSCALE)
-        target = cv2.imread(os.path.join('../data/test_labels', img_name), cv2.IMREAD_GRAYSCALE)
+        pred = cv2.imread(os.path.join('../EWD/test_predicts_label/wo CC', img_name), cv2.IMREAD_GRAYSCALE)
+        target = cv2.imread(os.path.join('../EWD/test_labels', img_name), cv2.IMREAD_GRAYSCALE)
         target = cv2.resize(target, (640, 360))
         pred[pred < 31] = 0
         pred[pred != 0] = 1
@@ -69,8 +69,8 @@ def dice_CVFDLO():
     print("avg_dice_C3:", avg_dice_C3)
 
 def dice_reconst():
-    pred_dir = '../data/LAB_imgs_1028_DLO/reconst_compare/reconsts'
-    mask_dir = '../data/LAB_imgs_1028_DLO/reconst_compare/masks'
+    pred_dir = '../EWD/LAB_imgs_1028_DLO/reconst_compare/reconsts'
+    mask_dir = '../EWD/LAB_imgs_1028_DLO/reconst_compare/masks'
     img_list = os.listdir(pred_dir)
     dice_dict = {}
     for img_name in img_list:

@@ -36,14 +36,14 @@ def PQ(pred, target, epsilon=1e-6):
 
 if __name__ == "__main__":
 
-    img_list = os.listdir('../data/test_labels')
+    img_list = os.listdir('../EWD/test_labels')
 
     PQ_dict = {}
 
     for img_name in img_list:
 
-        pred = cv2.imread(os.path.join('../data/test_predicts_label/wo CC', img_name), cv2.IMREAD_UNCHANGED)
-        target = cv2.imread(os.path.join('../data/test_labels', img_name), cv2.IMREAD_UNCHANGED)
+        pred = cv2.imread(os.path.join('../EWD/test_predicts_label/wo CC', img_name), cv2.IMREAD_UNCHANGED)
+        target = cv2.imread(os.path.join('../EWD/test_labels', img_name), cv2.IMREAD_UNCHANGED)
         pred_h, pred_w = pred.shape[0], pred.shape[1]
         target_h, target_w = target.shape[0], target.shape[1]
         size_h = min(pred_h, target_h)

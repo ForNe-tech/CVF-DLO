@@ -478,10 +478,10 @@ def ply_vtx_expand(path, vertex_scale=1.0):
 # def load_ply_model(model_path):
 #   from plyfile import PlyData
 #   ply = PlyData.read(model_path)
-#   data = ply.elements[0].data
-#   x = data['x']
-#   y = data['y']
-#   z = data['z']
+#   EWD = ply.elements[0].EWD
+#   x = EWD['x']
+#   y = EWD['y']
+#   z = EWD['z']
 #   return np.stack([x, y, z], axis=-1)
 
 
@@ -546,7 +546,7 @@ def load_ply(path, vertex_scale=1.0):
             header_vertex_section = False
             header_face_section = False
         elif line.startswith("property") and header_vertex_section:
-            # (name of the property, data type)
+            # (name of the property, EWD type)
             prop_name = line.split()[-1]
             if prop_name == "s":
                 prop_name = "texture_u"
@@ -557,12 +557,12 @@ def load_ply(path, vertex_scale=1.0):
         elif line.startswith("property list") and header_face_section:
             elems = line.split()
             if elems[-1] == "vertex_indices" or elems[-1] == "vertex_index":
-                # (name of the property, data type)
+                # (name of the property, EWD type)
                 face_props.append(("n_corners", elems[2]))
                 for i in range(face_n_corners):
                     face_props.append(("ind_" + str(i), elems[3]))
             elif elems[-1] == "texcoord":
-                # (name of the property, data type)
+                # (name of the property, EWD type)
                 face_props.append(("texcoord", elems[2]))
                 for i in range(face_n_corners * 2):
                     face_props.append(("texcoord_ind_" + str(i), elems[3]))
@@ -574,7 +574,7 @@ def load_ply(path, vertex_scale=1.0):
         elif line.startswith("end_header"):
             break
 
-    # Prepare data structures.
+    # Prepare EWD structures.
     model = {}
     if texture_file is not None:
         model["texture_file"] = texture_file
@@ -892,8 +892,8 @@ def obj_vtx(filename):
 
 if __name__ == "__main__":
     # test load (binary/text) ply model
-    train_model_dir = "data/BOP_DATASETS/lm_full/models"
-    val_model_dir = "data/BOP_DATASETS/lm_full/models_eval"
+    train_model_dir = "EWD/BOP_DATASETS/lm_full/models"
+    val_model_dir = "EWD/BOP_DATASETS/lm_full/models_eval"
     obj_id = 1
     model_train = load_ply(osp.join(train_model_dir, "obj_{:06d}.ply".format(obj_id)))
     print("train", model_train["pts"].shape, model_train["pts"].min(0), model_train["pts"].max(0))
@@ -901,7 +901,7 @@ if __name__ == "__main__":
     print("val", model_val["pts"].shape, model_val["pts"].min(0), model_val["pts"].max(0))
     """
     # test PlyData and load_ply
-    model_dir = "data/LINEMOD_6D/models"
+    model_dir = "EWD/LINEMOD_6D/models"
     cls_name = "ape"
     model_path = osp.join(model_dir, "{0}/{0}_sphere.ply".format(cls_name))
     model = load_ply(model_path)
@@ -911,9 +911,9 @@ if __name__ == "__main__":
 
     from plyfile import PlyData
 
-    data = PlyData.read(model_path)
-    print(data["vertex"])
-    vertex_indices = data["face"]["vertex_indices"]
+    EWD = PlyData.read(model_path)
+    print(EWD["vertex"])
+    vertex_indices = EWD["face"]["vertex_indices"]
     # print(vertex_indices)
     indices = np.asarray(list(vertex_indices), np.uint32)
     # print(indices)

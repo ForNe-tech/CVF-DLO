@@ -13,10 +13,10 @@ def vis_cables(cable1, cable2, label, visdir):
     plt.savefig(os.path.join(visdir, '{}_compare.png'.format(label)))
 
 if __name__ == "__main__":
-    base_dir = '../../data/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D'
-    cable_est_dir = '../../data/LAB_imgs_1028_DLO/route3D_select_bs'
-    cable_gt_dir = '../../data/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D_bs'
-    vis_dir = '../../data/LAB_imgs_1028_DLO/route3D_compare'
+    base_dir = '../../EWD/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D'
+    cable_est_dir = '../../EWD/LAB_imgs_1028_DLO/route3D_select_bs'
+    cable_gt_dir = '../../EWD/LAB_imgs_1028_DLO/LAB_CABIN_Cables/route3D_bs'
+    vis_dir = '../../EWD/LAB_imgs_1028_DLO/route3D_compare'
     cable_list = os.listdir(base_dir)
     for cable_name in cable_list:
         cable_name = cable_name[:-5]

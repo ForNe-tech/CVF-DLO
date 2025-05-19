@@ -650,10 +650,10 @@ if __name__ == "__main__":
 
     date = '1028'
 
-    Path_Dir = '../../data/LAB_imgs_{}_DLO/path2D'.format(date)
-    Path3D_Dir = '../../data/LAB_imgs_{}_DLO/path3D_sp_bs'.format(date)
-    Pose_Dir = '../../data/LAB_imgs_{}_DLO/json'.format(date)
-    Path3D_Merge_Dir = '../../data/LAB_imgs_{}_DLO/path3D_bs_merge'.format(date)
+    Path_Dir = '../../EWD/LAB_imgs_{}_DLO/path2D'.format(date)
+    Path3D_Dir = '../../EWD/LAB_imgs_{}_DLO/path3D_sp_bs'.format(date)
+    Pose_Dir = '../../EWD/LAB_imgs_{}_DLO/json'.format(date)
+    Path3D_Merge_Dir = '../../EWD/LAB_imgs_{}_DLO/path3D_bs_merge'.format(date)
 
     os.makedirs(Path3D_Merge_Dir, exist_ok=True)
 
@@ -685,7 +685,7 @@ if __name__ == "__main__":
     global_routes_dict = drawRoutes(global_path3D_dict, global_ends_dict, combEnds_list)
 
     # 三维Route散点保存
-    Route3D_Dir = '../../data/LAB_imgs_{}_DLO/route3D_bs'.format(date)
+    Route3D_Dir = '../../EWD/LAB_imgs_{}_DLO/route3D_bs'.format(date)
     os.makedirs(Route3D_Dir, exist_ok=True)
 
     for key, value in global_routes_dict.items():

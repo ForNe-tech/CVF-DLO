@@ -6,7 +6,7 @@ import matplotlib
 
 if __name__ == "__main__":
 
-    img_list = os.listdir("data/test_imgs")
+    img_list = os.listdir("EWD/test_imgs")
 
     total_time = {}
     seg_time = {}
@@ -32,8 +32,8 @@ if __name__ == "__main__":
         # img_name = 'c1_39.png'
         print(img_name)
 
-        IMG_PATH = "data/test_imgs/{}".format(img_name)
-        MASK_PATH = "data/test_masks/{}".format(img_name)
+        IMG_PATH = "EWD/test_imgs/{}".format(img_name)
+        MASK_PATH = "EWD/test_masks/{}".format(img_name)
 
         source_img = cv2.imread(IMG_PATH, cv2.IMREAD_COLOR)
         source_img = cv2.resize(source_img, (IMG_W, IMG_H))
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         total_time[img_name] = (arrow.utcnow() - t0).total_seconds() * 1000
         print('Out Total time: {:.5f}'.format((arrow.utcnow() - t0).total_seconds()))
 
-        out_dir = 'data/test_predicts_mask_R50/test5'
+        out_dir = 'EWD/test_predicts_mask_R50/test5'
         os.makedirs(out_dir, exist_ok=True)
 
         img_out = cv2.cvtColor(img_out, cv2.COLOR_BGR2RGB)

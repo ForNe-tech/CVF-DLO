@@ -70,7 +70,7 @@ def clean_short_routes(routes_List):
 
 if __name__ == "__main__":
 
-    Space_Route_Dir = '../../data/LAB_imgs_1028_DLO/route3D'
+    Space_Route_Dir = '../../EWD/LAB_imgs_1028_DLO/route3D'
     space_route_files = os.listdir(Space_Route_Dir)
 
     space_route_dict = {}

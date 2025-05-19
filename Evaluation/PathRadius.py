@@ -21,8 +21,8 @@ def remove_small_connected_components(binary, min_area):
 
 
 if __name__ == "__main__":
-    out_dir = '../data/LAB_imgs_1028_DLO/reconst_compare/reconsts'
-    mask_dir = '../data/LAB_imgs_1028_DLO/route3D_reconst_only_ORIGIN'
+    out_dir = '../EWD/LAB_imgs_1028_DLO/reconst_compare/reconsts'
+    mask_dir = '../EWD/LAB_imgs_1028_DLO/route3D_reconst_only_ORIGIN'
     mask_files = os.listdir(mask_dir)
     for mask_file in mask_files:
         mask_path = os.path.join(mask_dir, mask_file)
